@@ -2,10 +2,19 @@
     <div class="new-note">
         <label>Title</label>
         <input v-model="note.title" type="text">
+        <label>Priority</label>
+        <select v-model="note.priority" style="margin-bottom: 20px">
+            <option v-for="(option, index) in note.options"
+                    :value="option"
+                    :key="index"
+            >
+                {{ option }}
+            </option>
+        </select>
         <label>Description</label>
         <textarea v-model="note.descr"></textarea>
         <label></label>
-        <button class="btn btnDefaul" @click="addNote">New note</button>
+        <button class="btn btnPrimary" @click="addNote">New note</button>
     </div>
 </template>
 

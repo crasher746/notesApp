@@ -18,7 +18,7 @@
 
                 <!--search-->
                 <search :value="search"
-                        placeholder="Найти заметку"
+                        placeholder="Search note"
                         @search="search = $event"/>
 
                 <!--icons controls-->
@@ -29,7 +29,9 @@
             </div>
 
             <!--note list-->
-            <notes :notes="notesFilter" :grid="grid" @remove="removeNote"
+            <notes :notes="notesFilter"
+                   :grid="grid"
+                   @remove="removeNote"
             />
         </div>
       </section>
@@ -54,22 +56,27 @@ export default {
             grid: true,
             note: {
                 title: '',
-                descr: ''
+                descr: '',
+                priority: '',
+                options: ['standard', 'important', 'very important'],
             },
             notes: [
                 {
                     title: 'First Note',
                     descr: 'Description for first note',
+                    priority: 'standard',
                     date: new Date(Date.now()).toLocaleString()
                 },
                 {
                     title: 'Second Note',
                     descr: 'Description for second note',
+                    priority: 'important',
                     date: new Date(Date.now()).toLocaleString()
                 },
                 {
                     title: 'Third Note',
                     descr: 'Description for third note',
+                    priority: 'very important',
                     date: new Date(Date.now()).toLocaleString()
                 }
             ]
@@ -94,7 +101,7 @@ export default {
     },
     methods: {
         addNote () {
-            let {title, descr} = this.note;
+            let {title, descr, priority} = this.note;
 
             if (title === '') {
                 this.message = 'Title clear'
@@ -103,11 +110,13 @@ export default {
             this.notes.push({
                 title,
                 descr,
+                priority,
                 date: new Date(Date.now()).toLocaleString()
             })
             this.message = null
             this.note.title = ''
             this.note.descr = ''
+            this.note.priority = 'standard'
         },
         removeNote (index) {
             this.notes.splice(index, 1)

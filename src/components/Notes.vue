@@ -1,8 +1,18 @@
-<template>
+<template xmlns: xmlns:>
     <div class="notes">
         <div class="note" :class="{full: !grid}" v-for="(note, index) in notes" :key="index">
             <div class="note-header" :class="{full: !grid}">
-                <p>{{ note.title }}</p>
+                <p v-if="note.priority == 'standard'" class="standard">
+                    {{ note.title }}
+                </p>
+                <p v-else-if="note.priority == 'important'" class="important">
+                    {{ note.title }}
+                </p>
+                <p v-else-if="note.priority == 'very important'" class="very_important">
+                    {{ note.title }}
+                </p>
+                <!--another method:-->
+                <!--<p :style="`color: ${note.color}`"></p>-->
                 <p style="cursor: pointer" @click="removeNote(index)">x</p>
             </div>
             <div class="note-body">
@@ -69,13 +79,21 @@
         }
         p {
             font-size: 22px;
-            color: #402caf
+        }
+        p.standard {
+            color: #0000FF;
+        }
+        p.important {
+            color: #FFCC00;
+        }
+        p.very_important {
+            color:#FF0000;
         }
         svg {
             margin-right: 12px;
             color: #999999;
             &.active {
-                color: #402caf
+                color: #0000FF
             }
             &:last-child {
                 margin-right: 12px;
